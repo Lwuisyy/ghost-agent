@@ -168,20 +168,28 @@ export class GhostAgent extends EventEmitter<GhostAgentEvents> {
     this.activeRequests++;
 
     try {
-      const response = await this.proxyRotator.withRotation(
-        (exclude) => this.proxyPool.getNext(exclude),
-        (proxy) => this.executeRequest(req, session, proxy),
-        (proxy, error) => {
-          this.proxyPool.reportFailure(proxy, new URL(req.url).hostname);
-          this.emit('proxy-fail', proxy, error);
+      let ghostResponse: GhostResponse;
+      const poolStats = this.proxyPool.getStats();
+
+      if (poolStats.healthy > 0) {
+        // Use proxy rotation when proxies are available
+        const response = await this.proxyRotator.withRotation(
+          (exclude) => this.proxyPool.getNext(exclude),
+          (proxy) => this.executeRequest(req, session, proxy),
+          (proxy, error) => {
+            this.proxyPool.reportFailure(proxy, new URL(req.url).hostname);
+            this.emit('proxy-fail', proxy, error);
+          }
+        );
+        ghostResponse = response.result;
+
+        // Report proxy success
+        if (response.proxy) {
+          this.proxyPool.reportSuccess(response.proxy, ghostResponse.timing.total);
         }
-      );
-
-      const ghostResponse = response.result;
-
-      // Report proxy success
-      if (response.proxy) {
-        this.proxyPool.reportSuccess(response.proxy, ghostResponse.timing.total);
+      } else {
+        // Direct connection when no proxies available
+        ghostResponse = await this.executeRequest(req, session, null);
       }
 
       // Check for blocks
