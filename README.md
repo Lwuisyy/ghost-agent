@@ -278,7 +278,7 @@ npx tsx tests/smoke-test.ts
 
 ## 🪦 License
 
-MIT — *Use it. Fork it. Haunt the web with it.*
+[MIT](LICENSE) — *Use it. Fork it. Haunt the web with it.*
 
 ---
 
