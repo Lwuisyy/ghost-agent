@@ -261,16 +261,18 @@ npx tsx tests/smoke-test.ts
 
 ## 🗺️ The Roadmap
 
-```
-    ▓▓▓ TLS fingerprint masking (JA3/JA4)
-    ▓▓▓ Playwright / Puppeteer bridge
-    ▓▓▓ Proxy provider APIs (BrightData, Oxylabs, Smartproxy)
-    ▓▓▓ Session persistence across restarts
-    ▓▓▓ Cloudflare challenge auto-solver
-    ▓▓▓ Residential proxy auto-rotation per domain
-    ▓▓▓ Request/response recording for debugging
-    ▓▓▓ MCP server for AI agent integration
-```
+| Status | Feature |
+| :---: | --- |
+| ◻️ | **TLS fingerprint masking** (JA3/JA4) — spoof the TLS handshake itself |
+| ◻️ | **Playwright / Puppeteer bridge** — real browser automation with ghost stealth |
+| ◻️ | **Proxy provider APIs** — BrightData, Oxylabs, Smartproxy auto-integration |
+| ◻️ | **Session persistence** — save & restore ghost identities across restarts |
+| ◻️ | **Cloudflare challenge auto-solver** — bypass the "Just a moment..." wall |
+| ◻️ | **Residential proxy auto-rotation** — per-domain residential IP cycling |
+| ◻️ | **Request/response recording** — full trajectory capture for debugging |
+| ◻️ | **MCP server** — let AI agents (Claude, Cursor, etc.) invoke ghost as a tool |
+
+*Want to contribute? Pick an item, open a PR, and join the haunting.*
 
 ---
 
